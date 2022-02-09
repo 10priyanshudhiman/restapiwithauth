@@ -49,6 +49,47 @@ router.post('/register',async (req,res)=>{
 
 });
 
+// to get all users
+
+router.get('/register', async(req,res)=>{
+    try {
+        const users = await User.find();
+        res.send(users);
+    }
+    catch(err) {
+        res.status(400).send(err);
+    }
+
+});
+
+// to update a specific user
+
+router.patch('/register/:userId', async(req,res)=>{
+
+    try {
+        const updateduser = await User.updateOne({_id:req.params.userId},{$set:{name: req.body.name}});
+        res.send(updateduser);
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+
+});
+// to delete a specific user
+
+router.delete('/register/:userId', async (req,res)=> {
+    try {
+        const deleteduser = await User.remove({_id:req.params.userId});
+        res.send(deleteduser);
+
+    }
+    catch(err){
+        res.status(400).send(err);
+
+    }
+
+});
+
 //LOGIN
 
 router.post('/login',async (req,res) => {
